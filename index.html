@@ -100,6 +100,9 @@ h2 {
         0 0 20px var(--color-accent-cyan), /* Cyan outer glow */
         0 0 40px var(--color-accent-yellow), /* Yellow shadow 1 */
         0 0 60px var(--color-accent-yellow); /* Yellow shadow 2 */
+    
+    position: relative; 
+    z-index: 21; /* Ensures it stacks above the carousel (z-index 10) */
 }
 
 h3 {
@@ -601,7 +604,7 @@ h4 {
     margin-top: 30px;
     scrollbar-color: var(--color-accent-cyan) var(--color-surface);
     scrollbar-width: thin;
-    justify-content: center; 
+    justify-content: flex-start; /* FIX: Force start from left on mobile/scroll */
 }
 
 .team-cards-scroll::-webkit-scrollbar {
@@ -796,8 +799,8 @@ footer {
     
     /* Navbar Adjustments */
     .navbar { flex-direction: column; padding: 10px 0; height: auto; }
-    .navbar nav ul { flex-direction: column; width: 100%; margin: 10px 0; }
-    .navbar li a, .event-btn { margin: 5px 0; width: 90%; text-align: center; }
+    .navbar nav ul { flex-direction: row; /* FIX: Force horizontal nav */ width: 100%; margin: 10px 0; justify-content: center; }
+    .navbar li a, .event-btn { margin: 5px 10px; width: auto; text-align: center; }
 
     /* Hero Section padding adjustments */
     .hero-content { padding: 30px 20px; }
@@ -874,9 +877,19 @@ footer {
         align-items: center;
         gap: 50px;
     }
-    .podium-1 { transform: scale(1); margin-bottom: 0; }
+    .podium-1 { /* FIX: Resetting large scale for linear stacking */
+        transform: scale(1); 
+        margin-bottom: 0; 
+        order: 1;
+    }
+    .podium-2 { order: 2; }
+    .podium-3 { order: 3; }
+
 
     /* Team Cards Mobile (Allow horizontal scroll, smaller card size) */
+    .team-cards-scroll {
+        justify-content: flex-start; /* FIX: Ensure scroll starts from the left */
+    }
     .team-card-h {
         flex-basis: 75vw;
         height: 320px;
@@ -1081,7 +1094,7 @@ footer {
             <p>The individuals driving XP Farm's vision in the world of esports.</p>
             <div class="team-cards-scroll">
                 
-                <!-- FIXED: Team Member 1 - 3D Flip Card Structure -->
+                <!-- FIXED: Team Member 1 - 3D Flip Card Structure (Corrected image path) -->
                 <div class="team-card-h">
                     <div class="flip-card-inner">
                         <div class="flip-card-front">
